@@ -65,9 +65,21 @@ En esta práctica se trabajará sobre estos cuatro conceptos mediante la herrami
  8. **Firmar un mensaje y verificar la autoria de un mensaje**
    Firmar con la firma visible: `gpg --armour --clear-sign firmar.txt`
    Firmar sin la firma visible: `gpg --armour --detach-sign firmar.txt`
-
+   Firmar para alguien: `gpg --local-user arnbalmas@alu.edu.gva.es --clear-sing firmar.txt`
+   
+   Verificar: `gpg --verify firmar.txt.gpg`
    Verificación: `gpg --verify firmar.txt.sig`
- 9.  **Mailevelope**
+
+  F9D7E520 = clave de hugo
+  DF532C1A = mi clave
+
+  Primero firmamos la clave de otra persona: `gpg --sign-key hugtouram@alu.edu.gva.es`
+  Luego exportamos la clave de otra persona:`gpg --export --armour F9D7E520 > hugtouram.pub`
+  La otra persona importa la clave: `gpg --import hugtouram.pub`
+  La otra persona sube la clave al server: `gpg --keyserver keyserver.ubuntu.com --send-keys DF532C1A`
+  Volvemos a descargar la clave de la otra persona: `gpg --keyserver keyserver.ubuntu.com --receive-keys F9D7E520`
+
+ 1.  **Mailevelope**
     1.  Importar clave privada
     2.  Subir clave pública al keyserver de mailevelope
     3.  Importar claves publicas
