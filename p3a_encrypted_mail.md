@@ -33,7 +33,8 @@ En esta práctica se trabajará sobre estos cuatro conceptos mediante la herrami
    3. `gpg --symmetric --batch --passphrase contraseña 1cifrado_simetrico.txt`
    4. `gpg --cipher-algo TWOFISH --symmetric --armour 1cifrado_simetrico.txt`
 
-   Para desencriptar usaremos el siguiente comando: `gpg --decrypt 1cifrado_simetrico.txt.gpg` o `gpg --decrypt 1cifrado_simetrico.txt.asc` 
+   Para desencriptar usaremos el siguiente comando: `gpg --decrypt 1cifrado_simetrico.txt.gpg` o `gpg --decrypt 1cifrado_simetrico.txt.asc`
+   Puedes especificar la contraseña: `gpg --decrypt --batch --passphrase contraseña 1cifrado_simetrico.txt.gpg` 
    La terminación del archivo depende de como se ha cifrado el archivo
 
  2. **Crear par de claves**
@@ -45,12 +46,27 @@ En esta práctica se trabajará sobre estos cuatro conceptos mediante la herrami
    `gpg --list-secret-keys`
 
  4. **Importar/exportar claves publicas y privadas**
-   
-   
+   Exportar:
+   En asci: `gpg --armour --export-secret-keys paumarigu@alu.edu.gva.es > paumarigu.asc`
+   Mediante GNU Privacy Guard: `gpg --export-secret-keys paumarigu@alu.edu.gva.es > paumarigu.gpg`
+
+   Importar: 
+   En el import solo cambia la terminación del archivo: `gpg --import paumarigu.asc`
  5. **Importar y exportar de un servidor de claves**
+   Para ver el id: `gpg --list-keys --keyid-format short`
+   Exportar: `gpg --keyserver keyserver.ubuntu.com --send-keys DF532C1A`
+   Importar: `gpg --keyserver keyserver.ubuntu.com --search-keys hugtouram`
+
  6. **Encriptar un documento con clave pública de destinatario**
+   `gpg --encrypt --recipient hugtouram@alu.edu.gva.es --armour mensajepau.txt`
+   
  7. **Desencriptar un documento cifrado con nuetra clave publica haciendo uso de clave privada**
+   `gpg --decrypt mensajetourino.txt.asc`
  8. **Firmar un mensaje y verificar la autoria de un mensaje**
+   Firmar con la firma visible: `gpg --armour --clear-sign firmar.txt`
+   Firmar sin la firma visible: `gpg --armour --detach-sign firmar.txt`
+
+   Verificación: `gpg --verify firmar.txt.sig`
  9.  **Mailevelope**
     1.  Importar clave privada
     2.  Subir clave pública al keyserver de mailevelope
