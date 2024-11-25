@@ -26,17 +26,43 @@ En esta práctica se trabajará sobre estos cuatro conceptos mediante la herrami
 ## Desarrollo
 
  1. **Cifrar y descifrar un mensaje mediante criptografía simétrica**
+   Creamos un archvi para cifrarlo:`echo "Esto es un archivo cifrado" > 1cifrado_simetrico.txt`
+   Para cifrar un archivo podemos usar los siguientes comandos:
+   1. `gpg --symmetric 1cifrado_simetrico.txt`
+   2. `gpg --symmetric --armour 1cifrado_simetrico.txt`
+   3. `gpg --symmetric --batch --passphrase contraseña 1cifrado_simetrico.txt`
+   4. `gpg --cipher-algo TWOFISH --symmetric --armour 1cifrado_simetrico.txt`
+
+   Para desencriptar usaremos el siguiente comando: `gpg --decrypt 1cifrado_simetrico.txt.gpg` o `gpg --decrypt 1cifrado_simetrico.txt.asc` 
+   La terminación del archivo depende de como se ha cifrado el archivo
+
  2. **Crear par de claves**
+   `gpg --full-gen-key`
+
  3. **Listar claves pública/privada**
+   `gpg --list-key`
+   `gpg --list-public-keys`
+   `gpg --list-secret-keys`
+
  4. **Importar/exportar claves publicas y privadas**
+   
+   
  5. **Importar y exportar de un servidor de claves**
  6. **Encriptar un documento con clave pública de destinatario**
  7. **Desencriptar un documento cifrado con nuetra clave publica haciendo uso de clave privada**
  8. **Firmar un mensaje y verificar la autoria de un mensaje**
- 9. **Mailevelope**
+ 9.  **Mailevelope**
     1.  Importar clave privada
     2.  Subir clave pública al keyserver de mailevelope
     3.  Importar claves publicas
     4.  Enviar un mensaje cifrado y descifrar mensaje.
+
+ 
+
+
+
+
+
+
 
  
