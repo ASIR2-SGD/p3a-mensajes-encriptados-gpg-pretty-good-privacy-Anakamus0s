@@ -26,17 +26,86 @@ En esta práctica se trabajará sobre estos cuatro conceptos mediante la herrami
 ## Desarrollo
 
  1. **Cifrar y descifrar un mensaje mediante criptografía simétrica**
+   Creamos un archvi para cifrarlo:`echo "Esto es un archivo cifrado" > 1cifrado_simetrico.txt`
+   Para cifrar un archivo podemos usar los siguientes comandos:
+   1. `gpg --symmetric 1cifrado_simetrico.txt`
+   2. `gpg --symmetric --armour 1cifrado_simetrico.txt`
+   3. `gpg --symmetric --batch --passphrase contraseña 1cifrado_simetrico.txt`
+   4. `gpg --cipher-algo TWOFISH --symmetric --armour 1cifrado_simetrico.txt`
+
+   Para desencriptar usaremos el siguiente comando: `gpg --decrypt 1cifrado_simetrico.txt.gpg` o `gpg --decrypt 1cifrado_simetrico.txt.asc`
+   Puedes especificar la contraseña: `gpg --decrypt --batch --passphrase contraseña 1cifrado_simetrico.txt.gpg` 
+   La terminación del archivo depende de como se ha cifrado el archivo
+
  2. **Crear par de claves**
+   `gpg --full-gen-key`
+
  3. **Listar claves pública/privada**
+   `gpg --list-key`
+   `gpg --list-public-keys`
+   `gpg --list-secret-keys`
+
  4. **Importar/exportar claves publicas y privadas**
+   Exportar:
+  
+   En asci: `gpg --armour --export-secret-keys paumarigu@alu.edu.gva.es > paumarigu.asc`
+  
+   Mediante GNU Privacy Guard: `gpg --export-secret-keys paumarigu@alu.edu.gva.es > paumarigu.gpg`
+
+   Importar: 
+   En el import solo cambia la terminación del archivo: `gpg --import paumarigu.asc`
  5. **Importar y exportar de un servidor de claves**
+   Para ver el id: `gpg --list-keys --keyid-format short`
+   Exportar: `gpg --keyserver keyserver.ubuntu.com --send-keys DF532C1A`
+   Importar: `gpg --keyserver keyserver.ubuntu.com --search-keys hugtouram`
+
  6. **Encriptar un documento con clave pública de destinatario**
+   `gpg --encrypt --recipient hugtouram@alu.edu.gva.es --armour mensajepau.txt`
+   
  7. **Desencriptar un documento cifrado con nuetra clave publica haciendo uso de clave privada**
+   `gpg --decrypt mensajetourino.txt.asc`
  8. **Firmar un mensaje y verificar la autoria de un mensaje**
- 9. **Mailevelope**
+  
+   Firmar con la firma visible: `gpg --armour --clear-sign firmar.txt`
+  
+   Firmar sin la firma visible: `gpg --armour --detach-sign firmar.txt`
+  
+   Firmar para alguien: `gpg --local-user arnbalmas@alu.edu.gva.es --clear-sing firmar.txt`
+   
+   Verificar: `gpg --verify firmar.txt.gpg`
+   Verificación: `gpg --verify firmar.txt.sig`
+
+  F9D7E520 = clave de hugo
+  DF532C1A = mi clave
+
+  Primero firmamos la clave de otra persona: `gpg --sign-key hugtouram@alu.edu.gva.es`
+
+  Luego exportamos la clave de otra persona:`gpg --export --armour F9D7E520 > hugtouram.pub`
+  
+  La otra persona importa la clave: `gpg --import hugtouram.pub`
+  
+  La otra persona sube la clave al server: `gpg --keyserver keyserver.ubuntu.com --send-keys DF532C1A`
+  
+  Volvemos a descargar la clave de la otra persona: `gpg --keyserver keyserver.ubuntu.com --receive-keys F9D7E520`
+
+ 1.  **Mailevelope**
     1.  Importar clave privada
+      `gpg --export-secret-keys --armour paumarigu@alu.edu.gva.es > privada_pau.asc`
     2.  Subir clave pública al keyserver de mailevelope
+      ![Imagen keyring](image.png)
     3.  Importar claves publicas
+      Ponemos el siguiente comando:
+      `gpg --export --armour paumarigu@alu.edu.gva.es > pubkeys_pau.asc`
+      Luego subimos el archivo al mailevelop.
     4.  Enviar un mensaje cifrado y descifrar mensaje.
+    ![Mensaje de prueba para hugo](image-1.png)
+    ![Mensaje recibido de forma correcta](image-2.png)
+ 
+
+
+
+
+
+
 
  
